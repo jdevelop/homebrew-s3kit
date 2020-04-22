@@ -6,6 +6,12 @@ class S3kit < Formula
 
   depends_on "go" => :build
 
+  bottle do
+    root_url "https://github.com/jdevelop/s3kit/releases/download/v1.1.0"
+    cellar :any_skip_relocation
+    sha256 "8aa5a2d1039810e1685304e863d1fd9eaedf8553dc5b17c65546e83c4880b33f" => :mojave
+  end
+
   def install
     system "go", "build"
     bin.install "s3kit"
