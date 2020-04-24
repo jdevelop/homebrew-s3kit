@@ -1,21 +1,23 @@
 class S3kit < Formula
   desc "AWS S3 CLI tooklit"
   homepage "https://github.com/jdevelop/s3kit"
-  url "https://github.com/jdevelop/s3kit/archive/v1.1.0.tar.gz"
-  sha256 "9a3c7355edc253a94ba8ba21b9137388f764ee9dc4f562e294ddc71983d74a91"
+  url "https://github.com/jdevelop/s3kit/archive/v1.2.0.tar.gz"
+  sha256 "75aaf5657c7b49ae5c5496f0230465c69704c6c51ea4d1c5e4fe5ccf1f86e925"
 
-  depends_on "go" => :build
+  depends_on "go" => :build 
+  depends_on "upx" => :build 
 
   bottle do
-    root_url "https://github.com/jdevelop/s3kit/releases/download/v1.1.0"
     cellar :any_skip_relocation
-    sha256 "8aa5a2d1039810e1685304e863d1fd9eaedf8553dc5b17c65546e83c4880b33f" => :mojave
-    sha256 "8aa5a2d1039810e1685304e863d1fd9eaedf8553dc5b17c65546e83c4880b33f" => :high_sierra
-    sha256 "8aa5a2d1039810e1685304e863d1fd9eaedf8553dc5b17c65546e83c4880b33f" => :catalina
+    root_url "https://github.com/jdevelop/s3kit/releases/download/v1.2.0"
+    sha256 "7b6467998341f13a399efefd258313e37e70b67e0f4a9fc573ac2f8ccdacfc72" => :mojave
+    sha256 "7b6467998341f13a399efefd258313e37e70b67e0f4a9fc573ac2f8ccdacfc72" => :high_sierra
+    sha256 "7b6467998341f13a399efefd258313e37e70b67e0f4a9fc573ac2f8ccdacfc72" => :catalina
   end
 
   def install
-    system "go", "build"
+    system "go", "build","-ldflags", "-s -w", "-trimpath"
+    system "upx", "-9", "s3kit"
     bin.install "s3kit"
   end
 end
